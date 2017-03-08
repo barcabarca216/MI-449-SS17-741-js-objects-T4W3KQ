@@ -38,17 +38,26 @@ var jokeBox = document.getElementById('joke-box')
 var updateDisplayedJoke = function () {
   var requestedJokeKey = requestedJokeInput.value
   jokeBox.textContent = requestedJokeKey
+  if (requestedJokeInput = jokes) {
+    jokeBox('')
+  }
 }
 // Forget a bad joke
 var forget = document.getElementById('forget')
+var forgetjoke = function () {
+  delete jokes.requestedJokeKey
+  updatePage()
+}
 
 // remember a good joke
 var memory = document.getElementById('memory')
-var stjoke = JSON.stringify(memory)
-window.localStorage.setItem('memory', stjoke)
-
-var memory = JSON.parse(stringify)
-window.localStorage.getItem('memory', stjoke)
+var remjoke = function () {
+  var nj = JSON.stringify('jkbout' + 'setup' + 'menu')
+  window.localStorage.setItem(nj, remjoke)
+  var remjoke = JSON.parse(nj)
+  window.localStorage.getItem(remjoke)
+  updatePage()
+}
 
 // Function to keep track of all other
 // page update functions, so that we
@@ -71,6 +80,5 @@ updatePage()
 
 // Keep the requested joke up-to-date
 requestedJokeInput.addEventListener('input', updateDisplayedJoke)
-forget.addEventListener('click', updateJokesMenu)
-delete jokes.jokeKeyListItems
-memory.addEventListener('click', updateJokesMenu)
+forget.addEventListener('click', forgetjoke)
+memory.addEventListener('click', remjoke)
