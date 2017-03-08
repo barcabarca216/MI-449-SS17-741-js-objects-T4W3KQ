@@ -52,10 +52,12 @@ var forgetjoke = function () {
 // remember a good joke
 var memory = document.getElementById('memory')
 var remjoke = function () {
-  var nj = JSON.stringify('jkbout' + 'setup' + 'menu')
+  var jkbout = document.getElementById('jkbout').value
+  var setup = document.getElementById('setup').value
+  var punchline = document.getElementById('punchline').value
+  jokes[jkbout] = { setup: setup, punchline: punchline }
+  var nj = JSON.stringify(jokes)
   window.localStorage.setItem(nj, remjoke)
-  var remjoke = JSON.parse(nj)
-  window.localStorage.getItem(remjoke)
   updatePage()
 }
 
