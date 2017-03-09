@@ -3,20 +3,22 @@
 // ----
 
 // A couple jokes to start with
-var j = window.localStorage.getItem('jokes')
-j = JSON.parse(j)
-var jokes = {
-  'the horse': {
+var j = JSON.parse(window.localStorage.getItem('jokes'))
+
+var jokes = {}
+
+if (j) {
+  jokes = j
+} else {
+  jokes = {'the horse': {
     setup: 'A horse walks into the bar. The bartender asks...',
     punchline: 'Why the long face?'
   },
-  'Orion\'s pants': {
-    setup: 'How does Orion keep his pants up?',
-    punchline: 'With an asteroid belt.'
+    'Orion\'s pants': {
+      setup: 'How does Orion keep his pants up?',
+      punchline: 'With an asteroid belt.'
+    }
   }
-}
-if (j) {
-  jokes = j
 }
 
 // The message to display if the jokes object is empty
@@ -42,13 +44,19 @@ var requestedJokeInput = document.getElementById('requested-joke')
 var jokeBox = document.getElementById('joke-box')
 var updateDisplayedJoke = function () {
   var requestedJokeKey = requestedJokeInput.value
-  jokeBox.textContent = requestedJokeKey
+  if (jokes[requestedJokeKey]) {
+    jokeBox.innerHTML = '<p>' + jokes[requestedJokeKey]['setup'] + jokes[requestedJokeKey]['punchline'] + '</p>'
+  } else {
+    jokeBox.textContent = 'No matching joke found.'
+  }
 }
+
 // Forget a bad joke
 var forget = document.getElementById('forget')
 var forgetjoke = function () {
   var del = document.getElementById('delete').value
   delete jokes[del]
+  window.localStorage.setItem('jokes', JSON.stringify(jokes))
   updatePage()
 }
 
@@ -59,8 +67,7 @@ var remjoke = function () {
   var setup = document.getElementById('setup').value
   var punchline = document.getElementById('punchline').value
   jokes[jkbout] = { setup: setup, punchline: punchline }
-  var nj = JSON.stringify(jokes)
-  window.localStorage.setItem('jokes', nj)
+  window.localStorage.setItem('jokes', JSON.stringify(jokes))
   updatePage()
 }
 
@@ -84,9 +91,6 @@ updatePage()
 // ---------------
 
 // Keep the requested joke up-to-date
-// jokes.addEventListener('change', function () {
-//  jokes[j.value]
- //})
 requestedJokeInput.addEventListener('input', updateDisplayedJoke)
 forget.addEventListener('click', forgetjoke)
 memory.addEventListener('click', remjoke)
