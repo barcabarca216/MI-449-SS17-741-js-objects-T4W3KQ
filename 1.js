@@ -4,6 +4,7 @@
 
 // A couple jokes to start with
 var j = window.localStorage.getItem('jokes')
+JSON.parse(j)
 
 var jokes = {
   'the horse': {
@@ -14,6 +15,9 @@ var jokes = {
     setup: 'How does Orion keep his pants up?',
     punchline: 'With an asteroid belt.'
   }
+}
+if (j) {
+  jokes = j
 }
 
 // The message to display if the jokes object is empty
@@ -57,8 +61,8 @@ var remjoke = function () {
   var punchline = document.getElementById('punchline').value
   jokes[jkbout] = { setup: setup, punchline: punchline }
   var nj = JSON.stringify(jokes)
-  window.localStorage.setItem(jokes, nj)
-  JSON.parse(j)
+  window.localStorage.setItem('jokes', nj)
+  var j = JSON.parse(j)
   updatePage()
 }
 
@@ -82,9 +86,9 @@ updatePage()
 // ---------------
 
 // Keep the requested joke up-to-date
-//jokes.addEventListener('change', function () {
+// jokes.addEventListener('change', function () {
 //  jokes[j.value]
-//})
+ //})
 requestedJokeInput.addEventListener('input', updateDisplayedJoke)
 forget.addEventListener('click', forgetjoke)
 memory.addEventListener('click', remjoke)
