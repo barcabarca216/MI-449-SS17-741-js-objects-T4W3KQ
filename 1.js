@@ -4,8 +4,7 @@
 
 // A couple jokes to start with
 var j = window.localStorage.getItem('jokes')
-JSON.parse(j)
-
+j = JSON.parse(j)
 var jokes = {
   'the horse': {
     setup: 'A horse walks into the bar. The bartender asks...',
@@ -62,7 +61,6 @@ var remjoke = function () {
   jokes[jkbout] = { setup: setup, punchline: punchline }
   var nj = JSON.stringify(jokes)
   window.localStorage.setItem('jokes', nj)
-  var j = JSON.parse(j)
   updatePage()
 }
 
