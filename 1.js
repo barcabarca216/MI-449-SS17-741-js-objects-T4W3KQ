@@ -3,6 +3,8 @@
 // ----
 
 // A couple jokes to start with
+var j = window.localStorage.getItem('jokes')
+
 var jokes = {
   'the horse': {
     setup: 'A horse walks into the bar. The bartender asks...',
@@ -38,14 +40,12 @@ var jokeBox = document.getElementById('joke-box')
 var updateDisplayedJoke = function () {
   var requestedJokeKey = requestedJokeInput.value
   jokeBox.textContent = requestedJokeKey
-  if (requestedJokeInput = jokes) {
-    jokeBox('')
-  }
 }
 // Forget a bad joke
 var forget = document.getElementById('forget')
 var forgetjoke = function () {
-  delete jokes.requestedJokeKey
+  var del = document.getElementById('delete').value
+  delete jokes[del]
   updatePage()
 }
 
@@ -57,7 +57,8 @@ var remjoke = function () {
   var punchline = document.getElementById('punchline').value
   jokes[jkbout] = { setup: setup, punchline: punchline }
   var nj = JSON.stringify(jokes)
-  window.localStorage.setItem(nj, remjoke)
+  window.localStorage.setItem(jokes, nj)
+  JSON.parse(j)
   updatePage()
 }
 
@@ -81,6 +82,9 @@ updatePage()
 // ---------------
 
 // Keep the requested joke up-to-date
+//jokes.addEventListener('change', function () {
+//  jokes[j.value]
+//})
 requestedJokeInput.addEventListener('input', updateDisplayedJoke)
 forget.addEventListener('click', forgetjoke)
 memory.addEventListener('click', remjoke)
